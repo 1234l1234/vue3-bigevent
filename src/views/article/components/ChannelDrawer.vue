@@ -27,12 +27,10 @@ const open =async (row) => {
     // 获取文章详情
     const res =  await getArticleDetail(row.id)
     formModel.value = res.data.data
-    console.log(res.data.data)
     // 图片地址
     imgUrl.value = baseURL + formModel.value.cover_img
     formModel.value.cover_img = await imageUrlToFile(imgUrl.value, formModel.value.cover_img)
   } else {
-   
     editorRef.value.setContents('')
     formModel.value = { ...defaultForm }
     imgUrl.value = formModel.value.cover_img 

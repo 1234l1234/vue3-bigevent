@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import PageContainer from '@/components/PageContainter.vue'
 import { useUserStore } from '@/stores'
 import { updateUserInfo } from '@/api/user'
+import { ElMessage } from 'element-plus'
 
 
 const userStore = useUserStore()
@@ -23,8 +24,10 @@ const rules = {
 }
 
 const submitForm = () => {
-  updateUserInfo(from.value).then(res => {
-    console.log(res)
+  updateUserInfo(from.value).then(() => {
+    ElMessage.success('用户信息修改成功')
+  }).catch(err => {
+    ElMessage.error(err.message)
   })
 }
 

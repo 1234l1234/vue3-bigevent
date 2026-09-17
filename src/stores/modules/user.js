@@ -10,10 +10,8 @@ export const useUserStore = defineStore('user',() =>{
     const userInfo = ref({})
     const getuserInfo = async () => {
         const res = await getUserInfo()
-        
         userInfo.value = res.data.data   
     }
-
     const logout = () => {
         token.value = ''
         userInfo.value = {}

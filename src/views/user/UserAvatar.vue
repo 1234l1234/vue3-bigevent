@@ -7,10 +7,9 @@ import { ElMessage } from 'element-plus'
 import { updateUserAvatar } from '@/api/user'
 
 const userStore = useUserStore()
-console.log(userStore.userInfo.user_pic)
 const imgUrl = ref(userStore.userInfo.user_pic ? userStore.userInfo.user_pic : '')
 const avatarBase64 = ref('')
-
+  
 const fileToBase64 = (file) => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
@@ -27,7 +26,6 @@ const handleAvatarSuccess = (response, uploadFile) => {
 const onChange = async (uploadFile) => {
   const file = uploadFile.raw
   if (!file) return
-
   avatarBase64.value = await fileToBase64(file)
   imgUrl.value = avatarBase64.value
   isableUpload.value = false
@@ -72,13 +70,11 @@ const submitForm = async () => {
   }
 
   try {
-    const res = await updateUserAvatar(avatarBase64.value)
-    console.log(res)
+    await updateUserAvatar(avatarBase64.value)
     ElMessage.success('头像上传成功')
     isableUpload.value = true
   } catch (error) {
-    console.error(error)
-    ElMessage.error('头像上传失败')
+    ElMessage.error('头像上传失败', error.message)
   }
 }
 

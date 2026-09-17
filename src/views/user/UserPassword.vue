@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import PageContainer from '@/components/PageContainter.vue'
 import { updateUserPwd } from '@/api/user'
+import { ElMessage } from 'element-plus'
 
 const from = ref({
   oldPassword: '',
@@ -26,8 +27,10 @@ const submitForm = () => {
     old_pwd: from.value.oldPassword,
     new_pwd: from.value.newPassword,
     re_pwd: from.value.repassword
-  }).then(res => {
-    console.log(res)
+  }).then(() => {
+    ElMessage.success('密码修改成功，请重新登录')
+  }).catch(err => {
+    ElMessage.error(err.message)
   })
 }
 
